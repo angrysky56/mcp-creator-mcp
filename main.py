@@ -187,13 +187,22 @@ async def get_ai_guidance(
         Format the response clearly with actionable advice.
         """
 
-        # Use the workflow_engine or another AI component to get guidance
-        workflow_engine = ctx.request_context.lifespan_context["workflow_engine"]
-        guidance = await workflow_engine.get_ai_guidance(guidance_prompt)
+        settings = ctx.request_context.lifespan_context["settings"]
+        if not settings.has_ai_provider:
+            logger.warning("get_ai_guidance: No AI provider configured.")
+            return (
+                "⚠️ AI provider not configured. "
+                "This feature requires an AI provider (e.g., Anthropic, OpenAI) "
+                "to be configured in the server's environment settings. "
+                "Please contact the server administrator."
+            )
+
+        # Use context.sample for AI-powered guidance
+        guidance = await ctx.sample(guidance_prompt)
         return f"🧠 AI Guidance - {topic.title()}:\n\n{guidance}"
 
     except Exception as e:
-        logger.error(f"Failed to get AI guidance: {e}")
+        logger.error(f"Failed to get AI guidance for topic '{topic}': {e}")
         return f"❌ Error getting guidance: {str(e)}"
 
 
