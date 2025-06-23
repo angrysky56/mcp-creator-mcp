@@ -1,0 +1,14 @@
+{
+  "name": "fastmcp_server",
+  "description": "Advanced FastMCP server with lifecycle management and AI integration",
+  "language": "python",
+  "version": "1.0.0", 
+  "features": ["tools", "resources", "prompts", "sampling", "lifecycle"],
+  "author": "MCP Creator",
+  "requires": [
+    "mcp[cli]>=1.2.0"
+  ],
+  "tags": ["advanced", "fastmcp", "ai-enhanced", "lifecycle"],
+  "complexity": "intermediate",
+  "documentation": "A sophisticated template showcasing FastMCP patterns with AI sampling, lifecycle management, and clean architecture"
+}

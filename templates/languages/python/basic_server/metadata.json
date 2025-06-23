@@ -1,0 +1,14 @@
+{
+  "name": "basic_server",
+  "description": "A clean, well-structured basic MCP server template",
+  "language": "python", 
+  "version": "1.0.0",
+  "features": ["tools", "resources", "prompts"],
+  "author": "MCP Creator",
+  "requires": [
+    "mcp[cli]>=1.2.0"
+  ],
+  "tags": ["basic", "starter", "clean"],
+  "complexity": "beginner",
+  "documentation": "A foundational template demonstrating MCP best practices with clean architecture"
+}

@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "mcp-creator": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/home/ty/Repositories/ai_workspace/mcp-creator-mcp",
+        "run",
+        "python",
+        "main.py"
+      ],
+      "env": {
+        "ANTHROPIC_API_KEY": "your_anthropic_key_here",
+        "LOG_LEVEL": "INFO"
+      }
+    }
+  }
+}
