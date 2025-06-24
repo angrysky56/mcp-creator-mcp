@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "syntax_checker": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/home/ty/Repositories/ai_workspace/mcp-creator-mcp/mcp_servers/syntax_checker",
+        "run",
+        "python",
+        "main.py"
+      ]
+    }
+  }
+}

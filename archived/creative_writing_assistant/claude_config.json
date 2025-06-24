@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "creative_writing_assistant": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/home/ty/Repositories/ai_workspace/mcp-creator-mcp/mcp_servers/creative_writing_assistant",
+        "run",
+        "python",
+        "main.py"
+      ]
+    }
+  }
+}

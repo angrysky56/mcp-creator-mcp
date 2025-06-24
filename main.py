@@ -92,12 +92,18 @@ async def create_mcp_server(
     """
     Create a new MCP server based on specifications.
 
+    IMPORTANT NOTES:
+    - AI sampling (ctx.sample) is not currently supported in Claude Desktop
+    - Use modern typing: dict, list, str | None instead of Dict, List, Optional
+    - Generated servers include proper process cleanup and error handling
+    - All generated code uses working MCP SDK patterns
+
     Args:
         name: Name of the MCP server (must be valid Python identifier)
         description: Description of what the server does
         language: Programming language (python, gradio, typescript)
-        template_type: Type of template (basic, advanced, database, etc.)
-        features: list of features to include (tools, resources, prompts, sampling)
+        template_type: Type of template (basic, fastmcp_server)
+        features: list of features to include (tools, resources, prompts)
         output_dir: Output directory (defaults to configured default)
 
     Returns:
@@ -163,14 +169,23 @@ async def get_ai_guidance(
     server_type: str = "general",
 ) -> str:
     """
-    Get AI-powered guidance for MCP server development.
+    Get structured guidance for MCP server development.
+
+    IMPORTANT NOTES:
+    - AI sampling (ctx.sample) is NOT currently supported in Claude Desktop
+    - Use modern typing: dict, list, str | None instead of Dict, List, Optional
+    - Always implement proper process cleanup and signal handling
+    - Follow MCP SDK patterns for tools, resources, and prompts
+
+    This tool provides structured, deterministic guidance instead of AI-generated content.
+    For dynamic AI assistance, use Claude Desktop's built-in capabilities directly.
 
     Args:
-        topic: Topic to get guidance on (best_practices, security, performance, etc.)
+        topic: Topic to get guidance on (best_practices, security, performance, typing, etc.)
         server_type: Type of server for contextualized advice
 
     Returns:
-        AI-generated guidance and recommendations
+        Structured guidance and recommendations with working code patterns
     """
     try:
         guidance_prompt = f"""

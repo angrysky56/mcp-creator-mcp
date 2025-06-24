@@ -85,14 +85,19 @@ Sampling allows your MCP server to delegate text generation back to the client's
 ```python
 @mcp.tool()
 async def analyze_data(ctx: Context, data: str) -> str:
-    prompt = f"Analyze this data: {data}"
-    analysis = await ctx.sample(prompt)
+    # Note: AI sampling is not currently supported in Claude Desktop
+    # Provide structured analysis based on data characteristics
+    analysis = f"Data Analysis:\n"
+    analysis += f"- Length: {len(data)} characters\n"
+    analysis += f"- Type: {'numeric' if data.isdigit() else 'text'}\n"
+    analysis += f"- Structure: {'structured' if ',' in data or '\n' in data else 'simple'}\n"
     return analysis
 ```
 
 ## Best Practices
 
-1. Use sampling for text generation and analysis
+1. AI sampling is not currently supported in Claude Desktop
+2. Provide structured, deterministic analysis as shown above
 2. Keep prompts focused and specific
 3. Handle sampling failures gracefully
 4. Cache results when appropriate
