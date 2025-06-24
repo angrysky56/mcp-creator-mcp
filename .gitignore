@@ -31,7 +31,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-
+uv.lock
 # IDEs
 .vscode/
 .idea/
