@@ -8,11 +8,7 @@
         "run",
         "python",
         "main.py"
-      ],
-      "env": {
-        "ANTHROPIC_API_KEY": "your_anthropic_key_here",
-        "LOG_LEVEL": "INFO"
-      }
+      ]
     }
   }
 }
