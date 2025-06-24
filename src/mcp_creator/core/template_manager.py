@@ -41,7 +41,7 @@ class TemplateManager:
         self.settings = settings
         self.templates: dict[str, Template] = {}
         self.jinja_env = Environment(
-            loader=FileSystemLoader(str(settings.template_dir)),
+            loader=FileSystemLoader(str(settings.template_cache_dir)), # Updated to template_cache_dir
             autoescape=select_autoescape(["html", "xml"]),
             trim_blocks=True,
             lstrip_blocks=True,
@@ -90,13 +90,15 @@ class TemplateManager:
 
     async def _discover_templates(self) -> None:
         """Discover and load template metadata."""
-        template_dir = self.settings.template_dir / "languages"
+        # Use the updated settings field name for the base template directory
+        base_template_dir = self.settings.template_cache_dir
+        template_languages_dir = base_template_dir / "languages"
 
-        if not template_dir.exists():
-            logger.warning(f"Template directory not found: {template_dir}")
+        if not template_languages_dir.exists():
+            logger.warning(f"Template languages directory not found: {template_languages_dir}")
             return
 
-        for lang_dir in template_dir.iterdir():
+        for lang_dir in template_languages_dir.iterdir(): # Updated variable name
             if not lang_dir.is_dir():
                 continue
 

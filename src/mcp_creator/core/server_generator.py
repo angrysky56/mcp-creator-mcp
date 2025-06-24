@@ -123,7 +123,7 @@ Use `list_templates` to see all options."""
         if spec.output_dir:
             base_dir = Path(spec.output_dir)
         else:
-            base_dir = self.settings.output_dir
+            base_dir = self.settings.default_output_dir # Updated to default_output_dir
 
         server_dir = base_dir / spec.name
         server_dir.mkdir(parents=True, exist_ok=True)

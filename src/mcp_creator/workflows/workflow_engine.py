@@ -182,12 +182,12 @@ class WorkflowEngine:
 
     async def _load_workflows(self) -> None:
         """Load workflows from disk."""
-        workflow_dir = self.settings.workflow_dir
+        load_dir = self.settings.workflow_save_dir # Updated to workflow_save_dir
 
-        if not workflow_dir.exists():
+        if not load_dir.exists():
             return
 
-        for workflow_file in workflow_dir.glob("*.json"):
+        for workflow_file in load_dir.glob("*.json"):
             try:
                 async with aiofiles.open(workflow_file) as f:
                     content = await f.read()
@@ -202,7 +202,8 @@ class WorkflowEngine:
 
     async def _persist_workflow(self, workflow_id: str, workflow: Workflow) -> None:
         """Save workflow to disk."""
-        workflow_file = self.settings.workflow_dir / f"{workflow_id}.json"
+        save_dir = self.settings.workflow_save_dir # Updated to workflow_save_dir
+        workflow_file = save_dir / f"{workflow_id}.json"
 
         async with aiofiles.open(workflow_file, "w") as f:
             content = json.dumps(workflow.to_dict(), indent=2)
