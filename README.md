@@ -18,6 +18,8 @@ Creating MCP servers should be as simple as describing what you want. MCP Creato
 - **📊 Built-in Monitoring**: Server health checks and operational visibility
 - **🛡️ Best Practices**: Automated validation and security recommendations
 
+![alt text](image.png)
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -101,10 +103,10 @@ GRADIO_SHARE=false
     "mcp-creator": {
       "command": "uv",
       "args": [
-        "--directory", 
+        "--directory",
         "/path/to/mcp-creator-mcp",
-        "run", 
-        "python", 
+        "run",
+        "python",
         "main.py"
       ],
       "env": {
@@ -128,7 +130,7 @@ GRADIO_SHARE=false
 # Or use the tool directly:
 create_mcp_server(
     name="weather_helper",
-    description="Provides weather data and forecasts", 
+    description="Provides weather data and forecasts",
     language="python",
     template_type="basic",
     features=["tools", "resources"]
@@ -140,7 +142,7 @@ create_mcp_server(
 ```python
 # Ask for specific guidance:
 get_ai_guidance(
-    topic="security", 
+    topic="security",
     server_type="database"
 )
 
@@ -219,13 +221,13 @@ save_workflow(
             "config": {"fields": ["db_type", "connection_string"]}
         },
         {
-            "id": "security_review", 
+            "id": "security_review",
             "type": "ai_guidance",
             "config": {"topic": "database_security"}
         },
         {
             "id": "generate_server",
-            "type": "generation", 
+            "type": "generation",
             "config": {"template": "python:database"}
         }
     ]
@@ -312,7 +314,7 @@ uv run python -c "from src.mcp_creator import TemplateManager; print(TemplateMan
 The server provides built-in health monitoring:
 
 - **Resource usage tracking**
-- **Error rate monitoring** 
+- **Error rate monitoring**
 - **Performance metrics**
 - **Template validation**
 
@@ -328,7 +330,7 @@ python main.py 2>&1 | tee mcp-creator.log
 ## 🚀 What's Next?
 
 - **Multi-language expansion**: TypeScript, Go, Rust templates
-- **Cloud deployment**: Integration with major cloud platforms  
+- **Cloud deployment**: Integration with major cloud platforms
 - **Collaboration features**: Team workflows and template sharing
 - **Advanced AI**: Enhanced code generation and optimization
 - **Marketplace**: Community template and workflow ecosystem
