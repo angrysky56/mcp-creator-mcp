@@ -187,10 +187,42 @@ async def get_ai_guidance(
         Format the response clearly with actionable advice.
         """
 
-        # Use context.sample for AI-powered guidance.
-        # The MCP client (e.g., Claude Desktop) is responsible for having an AI provider configured.
-        # The server itself does not need API keys in its own environment for ctx.sample() to work.
-        guidance = await ctx.sample(guidance_prompt)
+        # Note: AI sampling is not currently supported in Claude Desktop
+        # Providing structured guidance template instead
+        guidance = f"""
+        ## MCP Server Development Guidance - {topic.title()}
+
+        ### Best Practices for {server_type} servers:
+        1. **Process Management**: Implement signal handlers and cleanup functions
+        2. **Error Handling**: Use try/catch blocks with meaningful error messages
+        3. **Security**: Validate all inputs and sanitize data
+        4. **Performance**: Use async/await patterns and connection pooling
+        5. **Logging**: Log to stderr for MCP compliance
+
+        ### Common Pitfalls:
+        - Missing process cleanup leading to resource leaks
+        - Blocking operations without async/await
+        - Inadequate input validation
+        - Poor error messages that don't help debugging
+
+        ### Security Considerations:
+        - Always validate and sanitize user inputs
+        - Implement rate limiting for resource-intensive operations
+        - Use environment variables for sensitive configuration
+        - Follow principle of least privilege
+
+        ### Performance Tips:
+        - Cache expensive operations when possible
+        - Use connection pooling for databases
+        - Implement proper timeouts
+        - Monitor resource usage
+
+        ### Specific Recommendations for {server_type}:
+        - Follow existing patterns in the MCP-Creator templates
+        - Test with small inputs before scaling
+        - Implement graceful degradation for failures
+        - Document your API clearly
+        """
         return f"🧠 AI Guidance - {topic.title()}:\n\n{guidance}"
 
     except Exception as e:

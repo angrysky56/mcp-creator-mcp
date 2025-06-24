@@ -1,4 +1,5 @@
 """
+"""
 {{ server_name.replace('_', ' ').title() }} - {{ description }}
 
 Advanced FastMCP server demonstrating AI integration and lifecycle management.
@@ -224,7 +225,7 @@ async def server_status() -> str:
         
     except Exception as e:
         logger.error(f"Status resource failed: {e}")
-        return f'{{"error": "Status unavailable: {str(e)}"}}'
+        return '{"error": "Status unavailable: ' + str(e) + '"}'
 
 
 @mcp.resource("{{ server_name }}://metrics/{timeframe}")
@@ -244,7 +245,7 @@ async def performance_metrics(timeframe: str) -> str:
     try:
         valid_timeframes = ["hour", "day", "week"]
         if timeframe not in valid_timeframes:
-            return f'{{"error": "Invalid timeframe. Use: {valid_timeframes}"}}'
+            return '{"error": "Invalid timeframe. Use: ' + str(valid_timeframes) + '"}'
         
         # Mock metrics - replace with actual implementation
         metrics = {
@@ -260,7 +261,7 @@ async def performance_metrics(timeframe: str) -> str:
         
     except Exception as e:
         logger.error(f"Metrics resource failed: {e}")
-        return f'{{"error": "Metrics unavailable: {str(e)}"}}'
+        return '{"error": "Metrics unavailable: ' + str(e) + '"}'
 {% endif %}
 
 {% if 'prompts' in features %}
@@ -351,7 +352,7 @@ atexit.register(cleanup_handler)
 if __name__ == "__main__":
     try:
         logger.info("Starting {{ server_name }} FastMCP server")
-        logger.info(f"Features: {{ features | join(', ') }}")
+        logger.info("Features: {{ features | join(', ') }}")
         
         # Start server with comprehensive error handling
         mcp.run()

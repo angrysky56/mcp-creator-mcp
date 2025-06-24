@@ -40,8 +40,10 @@ class TemplateManager:
     def __init__(self, settings: Settings):
         self.settings = settings
         self.templates: dict[str, Template] = {}
+        # Point FileSystemLoader to the languages directory where templates are organized by language
+        languages_dir = settings.template_cache_dir / "languages"
         self.jinja_env = Environment(
-            loader=FileSystemLoader(str(settings.template_cache_dir)), # Updated to template_cache_dir
+            loader=FileSystemLoader(str(languages_dir)),
             autoescape=select_autoescape(["html", "xml"]),
             trim_blocks=True,
             lstrip_blocks=True,

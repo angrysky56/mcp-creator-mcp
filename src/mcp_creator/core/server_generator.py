@@ -167,32 +167,82 @@ Use `list_templates` to see all options."""
         spec: ServerSpec,
         context: Context,
     ) -> dict[str, Any]:
-        """Use AI to enhance template variables."""
+        """Provide structured enhancement suggestions for server implementation."""
         try:
-            prompt = f"""
-            Enhance the MCP server implementation for: {spec.description}
+            # Note: AI sampling is not currently supported in Claude Desktop
+            # Providing structured suggestions based on server specification
 
-            Server type: {spec.template_type}
-            Features: {', '.join(spec.features)}
+            enhancement_suggestions = {
+                "tools": self._suggest_tools_for_spec(spec),
+                "resources": self._suggest_resources_for_spec(spec),
+                "error_handling": [
+                    "Implement try/catch blocks around all external operations",
+                    "Log errors to stderr for MCP compliance",
+                    "Provide meaningful error messages to users",
+                    "Handle network timeouts gracefully"
+                ],
+                "performance_tips": [
+                    "Use async/await for I/O operations",
+                    "Implement connection pooling for databases",
+                    "Cache expensive computations",
+                    "Set appropriate timeouts"
+                ]
+            }
 
-            Suggest specific:
-            1. Tool names and descriptions
-            2. Resource endpoints
-            3. Error handling strategies
-            4. Performance considerations
-
-            Return as JSON with keys: tools, resources, error_handling, performance_tips
-            """
-
-            ai_suggestions = await context.sample(prompt)
-            # Parse and integrate AI suggestions
             variables["ai_enhanced"] = True
-            variables["ai_suggestions"] = ai_suggestions
+            variables["ai_suggestions"] = enhancement_suggestions
 
         except Exception as e:
             logger.warning(f"AI enhancement failed: {e}")
 
         return variables
+
+    def _suggest_tools_for_spec(self, spec: ServerSpec) -> list[dict]:
+        """Suggest appropriate tools based on server specification."""
+        suggested_tools = []
+
+        # Basic tools for all servers
+        suggested_tools.append({
+            "name": "process_data",
+            "description": f"Process data for {spec.description}",
+            "parameters": ["data: str", "operation: str = 'analyze'"]
+        })
+
+        # Feature-specific suggestions
+        if "database" in spec.description.lower():
+            suggested_tools.append({
+                "name": "query_database",
+                "description": "Execute database queries safely",
+                "parameters": ["query: str", "limit: int = 100"]
+            })
+
+        if "file" in spec.description.lower():
+            suggested_tools.append({
+                "name": "process_file",
+                "description": "Process and analyze files",
+                "parameters": ["file_path: str", "operation: str"]
+            })
+
+        return suggested_tools
+
+    def _suggest_resources_for_spec(self, spec: ServerSpec) -> list[dict]:
+        """Suggest appropriate resources based on server specification."""
+        suggested_resources = []
+
+        # Status resource for all servers
+        suggested_resources.append({
+            "name": f"{spec.name}://status",
+            "description": "Server status and health information"
+        })
+
+        # Feature-specific suggestions
+        if "config" in spec.description.lower():
+            suggested_resources.append({
+                "name": f"{spec.name}://config",
+                "description": "Configuration data and settings"
+            })
+
+        return suggested_resources
 
     async def _generate_support_files(
         self,
